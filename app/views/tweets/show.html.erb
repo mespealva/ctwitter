@@ -1,32 +1,7 @@
 <%= render 'tweet', tweet: @tweet %>
 
 <%unless @tweet.rt.nil?%>
-  <div class="container">
-    <div class="card text-white bg-dark m-2">
-      <h5 class="card-header">
-        <%= @rt.user.name %>
-      </h5>
-      <div class="row">
-        <div class="col-2">
-          <%unless @rt.user.img.nil? %> 
-              <%= image_tag(@rt.user.img, size:'100') %>
-            <%end%>
-        </div>
-        <div class="col-10">
-          <div class="card-ody">
-            <h5 class="card-title"><%=@rt.content%></h5>
-            <p><%= link_to (@rt.is_liked?(current_user) ?  raw('&#10084') : raw('&#9825')), likes_path(@rt.id), method: :post %>
-            <span><%= @rt.likes.count %></p></span>
-            <%= @rt.count_rt %>  
-            <%= link_to 'retwitiar', retweet_path(@rt) %>          
-          </div>
-          <div class="card-footer text-muted">
-            <%= time_ago_in_words(@rt.created_at)%>
-          </div>
-        </div>  
-      </div>
-    </div>
-  </div>
+  <%= render 'retweet', tweet: @rt %>
 <%end%>
 
 <div class="card text-white bg-secondary " >

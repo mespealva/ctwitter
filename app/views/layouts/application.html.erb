@@ -19,11 +19,12 @@
         <div class="navbar-nav">
           <%if user_signed_in?%>
             <%= link_to ' cerrar sesion ', destroy_user_session_path, method: :delete, class: "nav-item nav-link active" %>
-            <a class="nav-item"><h3>Bienvenid@ <%= current_user.name %>!</h3></a>
+            <span class="navbar-text ">Bienvenid@ <%= current_user.name %>!</span>
             <%else%>
             <%= link_to 'registrate', new_user_registration_path, class: "nav-item nav-link active"%>
             <%= link_to 'iniciar sesion ', new_user_session_path, class: "nav-item nav-link active"%>
           <%end%>
+        </div>
         </div>
       </div>
     </nav>

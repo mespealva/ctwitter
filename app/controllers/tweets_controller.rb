@@ -1,5 +1,6 @@
 class TweetsController < ApplicationController
-  before_action :set_tweet, only: [:show, :destroy, :likes, :new_retweet, :retweet]
+  before_action :set_tweet, only: [ :show, :destroy, :likes, :new_retweet, :retweet]
+  #before_action :current_tweet, only: []
  
   def show
     @like = Like.where("tweet_id = ?", params[:id])
@@ -9,9 +10,15 @@ class TweetsController < ApplicationController
   end
 
   def new
-    @tweet = Tweet.new
-    @tweets = Tweet.paginate(page: params[:page], per_page: 50).nuevos
+    @new = Tweet.new
     @like = Like.new
+    @tweets = Tweet.paginate(page: params[:page], per_page: 50).nuevos
+    @tweets.each do |t|
+      @tweet=Tweet.find(t.id)
+      unless @tweet.rt.nil?
+        @rt = Tweet.find(t.rt)
+      end
+    end
   end
 
   def create
@@ -40,7 +47,7 @@ class TweetsController < ApplicationController
 
    def new_retweet
     new_tweet= Tweet.new
-     @tweet = Tweet.find(params[:id])
+    @tweet = Tweet.find(params[:id])
    end
 
    def retweet
@@ -61,4 +68,8 @@ class TweetsController < ApplicationController
     def tweet_params
       params.require(:tweet).permit(:content)
     end
+
+    # def current_tweet
+    #   @tweet = Tweet.find(t.id)
+    # end
 end

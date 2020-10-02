@@ -2,7 +2,7 @@
 <div class="card text-white bg-dark">
     <div class="card-body">
       <h1>Que piensas?</h1>
-      <%= render 'form', tweet: @tweet %>
+      <%= render 'form', tweet: @new %>
     </div>
   </div>
 <%end%>
@@ -30,7 +30,11 @@
       </div>  
     </div>
   </div>
-  
+  <!--perdon...-->
+  <%unless t.rt.nil?%>
+    <%t.rt = @rt.id%>
+    <%= render 'retweet', tweet: @rt %>
+  <%end%>
 <%end%>
 
   <%= will_paginate @tweets, :next_label => 'Mostrar mas twits' %>
