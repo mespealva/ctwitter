@@ -7,6 +7,8 @@ class Tweet < ApplicationRecord
 
     scope :nuevos, -> {order("created_at DESC") } 
 
+    scope :tweets_for_me, -> (user) { where(user_id: user.friends.pluck(:friend_id).push(user.id)) }
+
     def is_liked?(user)
         if self.liking_users.include?(user)
           true

@@ -7,6 +7,7 @@
   </div>
 <%end%>
 
+<%unless @tweets.empty?%>
 <% @tweets.each do |t| %>
   <div class="card text-white bg-dark m-2">
     <h5 class="card-header"><%= t.user.name %></h5>
@@ -30,11 +31,6 @@
       </div>  
     </div>
   </div>
-  <!--perdon...-->
-  <%unless t.rt.nil?%>
-    <%t.rt = @rt.id%>
-    <%= render 'retweet', tweet: @rt %>
-  <%end%>
 <%end%>
-
+<%end%>
   <%= will_paginate @tweets, :next_label => 'Mostrar mas twits' %>
