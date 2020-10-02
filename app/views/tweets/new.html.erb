@@ -35,7 +35,12 @@
       </div>
       <div class="col-10">
         <div class="card-ody">
-          <h5 class="card-title"><%= t.content %></h5>
+          <%if t.content.has_hashtag?%>
+            <% t.content.split(" ").each do |word| %>
+            <h5 class="card-title"><%= word.html_safe %></h5>
+          <%else%>
+            <h5 class="card-title"><%= t.content %></h5>
+          <%end%>
           <%= link_to (t.is_liked?(current_user) ?  raw('&#10084') : raw('&#9825')), likes_path(t.id), method: :post %>
           <span><%= t.likes.count %></p></span>
           <%= link_to 'retwitiar', retweet_path(t.id) %> 
