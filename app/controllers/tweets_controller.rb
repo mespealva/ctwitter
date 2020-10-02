@@ -1,10 +1,10 @@
 class TweetsController < ApplicationController
-  before_action :set_tweet, only: [:show, :destroy]
+  before_action :set_tweet, only: [:show, :destroy, :likes, :new_retweet, :retweet]
  
   def show
     @like = Like.where("tweet_id = ?", params[:id])
     unless @tweet.rt.nil?
-      @rt = Tweet.find(@twet.rt)
+      @rt = Tweet.find(@tweet.rt)
     end
   end
 
@@ -18,9 +18,9 @@ class TweetsController < ApplicationController
     @tweet = Tweet.new(tweet_params)
     @tweet.user_id = current_user.id 
     if @tweet.save
-      redirect_to @tweet, notice: 'Has Tweetiado' 
+      redirect_to root_path, notice: 'Has Tweetiado' 
     else
-      render :new 
+      redirect_to root_path, notice: 'ERROR!'
     end
   end
 
