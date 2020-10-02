@@ -35,11 +35,6 @@
       </div>  
     </div>
   </div>
-  <!--perdon...-->
-  <%unless t.rt.nil?%>
-    <%t.rt = @rt.id%>
-    <%= render 'retweet', tweet: @rt %>
-  <%end%>
 <%end%>
 
   <%= will_paginate @tweets, :next_label => 'Mostrar mas twits' %>

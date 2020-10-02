@@ -13,12 +13,12 @@ class TweetsController < ApplicationController
     @new = Tweet.new
     @like = Like.new
     @tweets = Tweet.paginate(page: params[:page], per_page: 50).nuevos
-    @tweets.each do |t|
-      @tweet=Tweet.find(t.id)
-      unless @tweet.rt.nil?
-        @rt = Tweet.find(t.rt)
-      end
-    end
+    # @tweets.each do |t|
+    #   @tweet=Tweet.find(t.id)
+    #   unless @tweet.rt.nil?
+    #     @rt = Tweet.find(t.rt)
+    #   end
+    # end
   end
 
   def create
