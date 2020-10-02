@@ -47,11 +47,11 @@ class Tweet < ApplicationRecord
         array = self.content.split(" ")
         array.each do |h| 
           if h.start_with?('#') 
-            h = "link_to #{h}, root_path/?search=#{h}" 
+            h = "<%=link_to '#{h}', search_path(#{h})%>" 
           else
             h
           end
-          new_array = new_array.push(h)
+          new_array.push(h)
         end 
         return new_array
       end

@@ -15,7 +15,15 @@
       </div>
       <div class="col-10">
         <div class="card-ody">
-          <h5 class="card-title"><%= @tweet.content%></h5>
+          <%-if @tweet.has_hashtag?%>
+          <h5 class='card-title'>
+            <%- @tweet.add_hashtags.each do |word| %>
+              <%= word %>
+            <%-end%>
+          </h5>
+          <%else%>
+            <h5 class="card-title"><%= @tweet.content %></h5>
+          <%end%>
           <p><%= link_to (@tweet.is_liked?(current_user) ?  raw('&#10084') : raw('&#9825')), likes_path(@tweet.id), method: :post %>
             <span><%= @tweet.likes.count %></p></span>
             <%= @tweet.count_rt %>  

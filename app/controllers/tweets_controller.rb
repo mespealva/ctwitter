@@ -61,6 +61,11 @@ class TweetsController < ApplicationController
       redirect_to root_path, notice: 'ERROR!' 
     end
    end 
+
+   def search(search)
+    @tweets = Tweet.where(content: search)
+   end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tweet
