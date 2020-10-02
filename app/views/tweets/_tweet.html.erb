@@ -1,0 +1,24 @@
+<div class="card text-white bg-dark m-2">
+    <h5 class="card-header">
+      <%=@tweet.user.name%>
+    </h5>
+    <div class="row">
+      <div class="col-2">
+        <%unless @tweet.user.img.nil? %> 
+            <%= image_tag(@tweet.user.img, size:'100') %>
+          <%end%>
+      </div>
+      <div class="col-10">
+        <div class="card-ody">
+          <h5 class="card-title"><%= @tweet.content%></h5>
+          <p><%= link_to (@tweet.is_liked?(current_user) ?  raw('&#10084') : raw('&#9825')), likes_path(@tweet.id), method: :post %>
+            <span><%= @tweet.likes.count %></p></span>
+            <%= @tweet.count_rt %>  
+            <%= link_to 'retwitiar', retweet_path(@tweet)%>          
+        </div>
+        <div class="card-footer text-muted">
+          <%= time_ago_in_words(@tweet.created_at)%>
+        </div>
+      </div>  
+    </div>
+  </div>

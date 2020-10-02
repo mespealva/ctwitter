@@ -1,0 +1,36 @@
+<%if user_signed_in?%>
+<div class="card text-white bg-dark">
+    <div class="card-body">
+      <h1>Que piensas?</h1>
+      <%= render 'form', tweet: @tweet %>
+    </div>
+  </div>
+<%end%>
+
+<% @tweets.each do |t| %>
+  <div class="card text-white bg-dark m-2">
+    <h5 class="card-header"><%= t.user.name %></h5>
+    <div class="row">
+      <div class="col-2">
+        <%unless t.user.img.nil? %> 
+          <%= image_tag(t.user.img, size:'100') %>
+        <%end%>
+      </div>
+      <div class="col-10">
+        <div class="card-ody">
+          <h5 class="card-title"><%= t.content %></h5>
+          <%= link_to (t.is_liked?(current_user) ?  raw('&#10084') : raw('&#9825')), likes_path(t.id), method: :post %>
+          <span><%= t.likes.count %></p></span>
+          <%= link_to 'retwitiar', retweet_path(t.id) %> 
+          <%= t.count_rt %>
+        </div>
+        <div class="card-footer text-muted">
+          <%=link_to time_ago_in_words(t.created_at), tweet_path(t) %>
+        </div>
+      </div>  
+    </div>
+  </div>
+
+<%end%>
+
+  <%= will_paginate @tweets, :next_label => 'Mostrar mas twits' %>
