@@ -26,6 +26,7 @@ class TweetsController < ApplicationController
   def create
     @tweet = Tweet.new(tweet_params)
     @tweet.user_id = current_user.id 
+    @tweet.content = @tweet.add_hashtags
     if @tweet.save
       redirect_to root_path, notice: 'Has Tweetiado' 
     else

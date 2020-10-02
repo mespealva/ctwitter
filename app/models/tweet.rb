@@ -36,4 +36,20 @@ class Tweet < ApplicationRecord
           @tweets = Tweet.paginate(page: params[:page], per_page: 50).nuevos
         end
       end
+      
+      # def has_hashtag?
+      #   self.content.split(" ").each do |word|
+      #     if word.start_with?("#")
+      #       return true
+      #     else
+      #       return false
+      #     end
+      # end
+
+      def add_hashtags
+        array = []
+        array = self.content.split(" ")
+        array= array.map { |hashtag| hashtag.start_with?('#') ? "<%=link_to(#{hashtag}, root_path+'?search='+#{hashtag})%>" : hashtag }
+        self.content = array.join(" ")
+      end
 end

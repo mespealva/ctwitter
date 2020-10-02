@@ -13,7 +13,11 @@
   </div>
 <%end%>
 <% if @tweets.empty?%>
-  <!--poner para que busque twwts y agregue gente-->
+<div class="card">
+  <div class="card-body">
+    ningun tweet por aqui, sigue gente o busca mas tweets
+  </div>
+</div>
 <%else %>
 <% @tweets.each do |t| %>
   <div class="card text-white bg-dark m-2">
