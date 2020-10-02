@@ -46,11 +46,12 @@ class Tweet < ApplicationRecord
         new_array=[]
         array = self.content.split(" ")
         array.each do |h| 
-          if h.start_with?('#') 
-            h = "<%=link_to '#{h}', search_path(#{h})%>" 
-          else
-            h
-          end
+            if h.start_with?('#') 
+             h=h.gsub('#', '')
+          # #   h = "<%=link_to '#{h}', search_path(#{h})%>" 
+            else
+              h
+            end
           new_array.push(h)
         end 
         return new_array

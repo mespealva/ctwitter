@@ -62,8 +62,8 @@ class TweetsController < ApplicationController
     end
    end 
 
-   def search(search)
-    @tweets = Tweet.where(content: search)
+   def search
+    @tweets = Tweet.where("content LIKE ?", "%#{:search}%")
    end
 
   private
