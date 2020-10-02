@@ -37,20 +37,22 @@ class Tweet < ApplicationRecord
         end
       end
       
-       def has_hashtag?
-         self.content.split(" ").each do |word|
-           if word.include?("#")
-             return true
-           else
-             return false
-           end
-          end
-        end
+      def has_hashtag?
+        self.content.include?("#")
+      end
 
       def add_hashtags
         array = []
+        new_array=[]
         array = self.content.split(" ")
-        array= array.map { |hashtag| hashtag.start_with?('#') ? ("<%=link_to(#{hashtag}, root_path+'?search='+#{hashtag})%>").html_safe : hashtag }
-        self.content = array.join(" ")
+        array.each do |h| 
+          if h.start_with?('#') 
+            h = "link_to #{h}, root_path/?search=#{h}" 
+          else
+            h
+          end
+          new_array = new_array.push(h)
+        end 
+        return new_array
       end
 end
