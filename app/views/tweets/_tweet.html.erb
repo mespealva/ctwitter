@@ -17,7 +17,7 @@
             <%= link_to 'retwitiar', retweet_path(@tweet)%>          
         </div>
         <div class="card-footer text-muted">
-          <%= time_ago_in_words(@tweet.created_at)%>
+          <%=link_to time_ago_in_words(@tweet.created_at), tweet_path(@tweet) %>
         </div>
       </div>  
     </div>
