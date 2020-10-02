@@ -33,7 +33,7 @@ class TweetsController < ApplicationController
 
   def destroy
     @tweet.destroy
-    redirect_to tweets_url, notice: 'Tweet fue eliminado' 
+    redirect_to root_path, notice: 'Tweet fue eliminado' 
   end
 
   def likes

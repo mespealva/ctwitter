@@ -18,6 +18,9 @@
         </div>
         <div class="card-footer text-muted">
           <%=link_to time_ago_in_words(@tweet.created_at), tweet_path(@tweet) %>
+          <% if @tweet.user_id == current_user.id %>
+            <%= link_to "borrar", tweet_path(@tweet.id), method: :delete %>
+          <%end%>
         </div>
       </div>  
     </div>
