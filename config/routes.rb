@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers:{
     registrations: 'users/registrations'
   }
+  post 'follow/:user_id', to:'users#follow', as: 'follow'
+  get 'search', to:'tweet#search'
   resources :tweets, except:[:index, :edit, :update]
   #get 'search', to: 'tweets#search'
   get 'retweet/:id', to: 'tweets#new_retweet', as: 'retweet' 

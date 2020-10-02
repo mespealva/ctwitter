@@ -10,12 +10,16 @@ class TweetsController < ApplicationController
   end
 
   def new
-    if user_signed_in?
-      @new = Tweet.new
-      @like = Like.new
-      @tweets = Tweet.paginate(page: params[:page], per_page: 50).nuevos.tweets_for_me(current_user)
+    if(params[:search] && !params[:search].empty? )
+      @tweets = Tweet.where("content LIKE ?", "%#{params[:search]}%").order(created_at: :desc).page params[:page]
     else
-      @tweets = Tweet.paginate(page: params[:page], per_page: 50).nuevos
+      if user_signed_in?
+        @new = Tweet.new
+        @like = Like.new
+        @tweets = Tweet.paginate(page: params[:page], per_page: 50).nuevos.tweets_for_me(current_user)
+      else
+        @tweets = Tweet.paginate(page: params[:page], per_page: 50).nuevos
+      end
     end
   end
 
@@ -66,8 +70,4 @@ class TweetsController < ApplicationController
     def tweet_params
       params.require(:tweet).permit(:content)
     end
-
-    # def current_tweet
-    #   @tweet = Tweet.find(t.id)
-    # end
 end

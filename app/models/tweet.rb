@@ -28,4 +28,12 @@ class Tweet < ApplicationRecord
       def count_rt
         Tweet.where(rt: self.id).count
       end
+
+      def self.search(search)
+        if search
+          find_by(content: ['content LIKE ?', "%#{search}%"])
+        else
+          @tweets = Tweet.paginate(page: params[:page], per_page: 50).nuevos
+        end
+      end
 end
