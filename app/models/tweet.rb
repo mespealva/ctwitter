@@ -43,17 +43,18 @@ class Tweet < ApplicationRecord
 
       def add_hashtags
         array = []
-        new_array=[]
+        #new_array=[]
         array = self.content.split(" ")
-        array.each do |h| 
-            if h.start_with?('#') 
-             h=h.gsub('#', '')
+        #array.each do |h| 
+        #    if h.start_with?('#') 
+        #     h=h.gsub('#', '')
           # #   h = "<%=link_to '#{h}', search_path(#{h})%>" 
-            else
-              h
-            end
-          new_array.push(h)
-        end 
-        return new_array
+        #    else
+        #      h
+        #    end
+        #  new_array.push(h)
+        #end 
+        #return new_array
+        return array
       end
 end

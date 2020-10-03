@@ -15,11 +15,14 @@
       </div>
       <div class="col-10">
         <div class="card-ody">
-          <%-if @tweet.has_hashtag?%>
+          <%if @tweet.has_hashtag?%>
           <h5 class='card-title'>
-            <%- @tweet.add_hashtags.each do |word| %>
-              <%=link_to "#{word.insert(0, '#')}", search_path("#{word}") %>
-            <%-end%>
+            <% @tweet.add_hashtags.each do |word| %>
+              <%if word.has_hastag?%>
+                <%= link_to "#{word}", "/?utf8=✓&search=#{word.gsub('#','')}" %>
+              <%else%>
+                <%= word %>
+              <%end%>
           </h5>
           <%else%>
             <h5 class="card-title"><%= @tweet.content %></h5>

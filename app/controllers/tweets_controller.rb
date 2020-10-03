@@ -62,9 +62,9 @@ class TweetsController < ApplicationController
     end
    end 
 
-   def search
-    @tweets = Tweet.where("content LIKE ?", "%#{:search}%")
-   end
+  #  def search
+  #   @tweets = Tweet.where("content LIKE ?", "%#{:search}%")
+  #  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

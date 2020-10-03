@@ -39,7 +39,7 @@
           <%-if t.has_hashtag?%>
           <h5 class='card-title'>
             <%- t.add_hashtags.each do |word| %>
-              <%=link_to "#{word.insert(0, '#')}", search_path("#{word}") %>
+              <%=link_to "#{word.insert(0, '#')}", "/?utf8=✓&search=#{word}" %>
             <%-end%>
           </h5>
           <%else%>
