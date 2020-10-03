@@ -41,7 +41,7 @@ class Tweet < ApplicationRecord
         self.content.include?("#")
       end
 
-      def add_hashtags
+      def separar
         array = []
         #new_array=[]
         array = self.content.split(" ")

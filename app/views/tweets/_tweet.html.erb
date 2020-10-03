@@ -3,7 +3,7 @@
       <%=@tweet.user.name%>
     </h5>
     <%if current_user.is_following?(@tweet.user)%>
-    <h5 class="text-right"><%= link_to "des-seguir", follow_path(@tweet.user), method: :post %></h5>
+     <h5 class="text-right"><%= link_to "des-seguir", follow_path(@tweet.user), method: :post %></h5>
     <%else%>
       <h5 class="text-right"><%= link_to "agregar", follow_path(@tweet.user), method: :post %></h5>
     <%end%>
@@ -11,18 +11,19 @@
       <div class="col-2">
         <%unless @tweet.user.img.nil? %> 
             <%= image_tag(@tweet.user.img, size:'100') %>
-          <%end%>
+        <%end%>
       </div>
       <div class="col-10">
         <div class="card-ody">
           <%if @tweet.has_hashtag?%>
           <h5 class='card-title'>
-            <% @tweet.add_hashtags.each do |word| %>
-              <%if word.has_hastag?%>
+            <% @tweet.separar.each do |word| %>
+              <%if word.start_with?('#')%>
                 <%= link_to "#{word}", "/?utf8=✓&search=#{word.gsub('#','')}" %>
               <%else%>
                 <%= word %>
               <%end%>
+            <%end%>
           </h5>
           <%else%>
             <h5 class="card-title"><%= @tweet.content %></h5>

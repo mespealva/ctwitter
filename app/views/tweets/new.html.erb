@@ -24,7 +24,7 @@
   <div class="card text-white bg-dark m-2">
     <h5 class="card-header"><%= t.user.name %></h5>
     <%if current_user.is_following?(t.user)%>
-    <h5 class="text-right"><%= link_to "des-seguir", follow_path(t.user), method: :post %></h5>
+      <h5 class="text-right"><%= link_to "des-seguir", follow_path(t.user), method: :post %></h5>
     <%else%>
       <h5 class="text-right"><%= link_to "agregar", follow_path(t.user), method: :post %></h5>
     <%end%>
@@ -35,16 +35,19 @@
         <%end%>
       </div>
       <div class="col-10">
-        <div class="card-ody">
-          <%-if t.has_hashtag?%>
+        <%if t.has_hashtag?%>
           <h5 class='card-title'>
-            <%- t.add_hashtags.each do |word| %>
-              <%=link_to "#{word.insert(0, '#')}", "/?utf8=✓&search=#{word}" %>
-            <%-end%>
+            <% t.separar.each do |word| %>
+              <%if word.start_with?('#')%>
+                <%= link_to "#{word}", "/?utf8=✓&search=#{word.gsub('#','')}" %>
+              <%else%>
+                <%= word %>
+              <%end%>
+            <%end%>
           </h5>
-          <%else%>
+            <%else%>
             <h5 class="card-title"><%= t.content %></h5>
-          <%end%>
+            <%end%>
           <%= link_to (t.is_liked?(current_user) ?  raw('&#10084') : raw('&#9825')), likes_path(t.id), method: :post %>
           <span><%= t.likes.count %></p></span>
           <%= link_to 'retwitiar', retweet_path(t.id) %> 
@@ -64,4 +67,5 @@
 <%end%>
 <%end%>
 <%end%>
+
   <%= will_paginate @tweets, :next_label => 'Mostrar mas twits' %>
