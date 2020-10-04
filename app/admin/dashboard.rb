@@ -26,7 +26,7 @@ ActiveAdmin.register_page "Dashboard" do
         panel "tweets" do
           ul do
             Tweet.all.each do |t|
-              li link_to(t.content, admin_user_tweets_path(t))
+              li link_to(t.content, admin_tweet_path(t))
             end
           end
         end
