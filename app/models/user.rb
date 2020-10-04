@@ -29,11 +29,11 @@ class User < ApplicationRecord
     self.tweets.where(rt: nil).count
   end 
     
-  def likes_give_it
+  def likes_given
     self.likes.count
   end 
   
-  def retweets_give_it
+  def retweets_given
     self.tweets.where.not(rt: nil).count
   end 
 end
