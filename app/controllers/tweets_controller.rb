@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: [ :show, :destroy, :likes, :new_retweet, :retweet]
-  #before_action :current_tweet, only: []
+
  
   def show
     @like = Like.where("tweet_id = ?", params[:id])
@@ -16,9 +16,9 @@ class TweetsController < ApplicationController
       if user_signed_in?
         @new = Tweet.new
         @like = Like.new
-        @tweets = Tweet.paginate(page: params[:page], per_page: 50).nuevos.tweets_for_me(current_user)
+        @tweets = Tweet.nuevos.tweets_for_me(current_user).page params[:page]
       else
-        @tweets = Tweet.paginate(page: params[:page], per_page: 50).nuevos
+        @tweets = Tweet.all.nuevos.page params[:page]
       end
     end
   end

@@ -4,6 +4,7 @@ class Tweet < ApplicationRecord
     has_many :liking_users, :through => :likes, :source => :user
     validates :content, presence: true
     validates :content, length: {minimum:4, maximum:280}
+    paginates_per 50
 
     scope :nuevos, -> {order("created_at DESC") } 
 
