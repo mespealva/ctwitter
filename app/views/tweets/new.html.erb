@@ -7,9 +7,9 @@
 <% end %>
 <%if user_signed_in?%>
 <div class="card text-white bg-dark">
-    <div class="card-body">
-      <h1>Que piensas?</h1>
-      <%= render 'form', tweet: @new %>
+  <div class="card-body">
+    <h1>Que piensas?</h1>
+    <%= render 'form', tweet: @new %>
     </div>
   </div>
 
@@ -45,16 +45,16 @@
               <%end%>
             <%end%>
           </h5>
-            <%else%>
+          <%else%>
             <h5 class="card-title"><%= t.content %></h5>
-            <%end%>
+          <%end%>
           <%= link_to (t.is_liked?(current_user) ?  raw('&#10084') : raw('&#9825')), likes_path(t.id), method: :post %>
           <span><%= t.likes.count %></p></span>
           <%= link_to 'retwitiar', retweet_path(t.id) %> 
           <%= t.count_rt %>
         </div>
         <div class="card-footer text-muted">
-          <div><%=link_to time_ago_in_words(t.created_at), tweet_path(t) %></div>
+          <%=link_to time_ago_in_words(t.created_at), tweet_path(t) %>
           <div class="text-right">
             <% if t.user_id == current_user.id %> 
               <%= link_to "borrar", tweet_path(t.id), method: :delete %>
@@ -63,9 +63,9 @@
         </div>
       </div>  
     </div>
-  </div>
+  <%end%>
 <%end%>
-<%end%>
+</div>
 <%end%>
 
   <%= paginate @tweets %>
