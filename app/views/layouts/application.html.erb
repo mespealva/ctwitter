@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Clonetwiter</title>
+    <title> TwitterClone </title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -29,8 +29,8 @@
       </div>
     </nav>
     <div class="container">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <p class="notice text-white"><%= notice %></p>
+      <p class="alert text-white"><%= alert %></p>
       <%= form_tag root_path, :method => 'get' do %>
         <p><%= text_field_tag :search, params[:search] %>
           <%= submit_tag "Search", :name => nil, class: "btn btn-secondary" %></p>

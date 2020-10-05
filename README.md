@@ -1,26 +1,13 @@
 # README
 
-https://serene-refuge-54163.herokuapp.com/
+## https://serene-refuge-54163.herokuapp.com/
+* Usuarios creados - password
+    * hola@hola - hola123
+    * lucia@lucia - lucia123
+    * sofia@sofia - sofia123
+* Buscar: tweet
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### https://serene-refuge-54163.herokuapp.com/admin
+* user: admin@example.com 
+* password: password 

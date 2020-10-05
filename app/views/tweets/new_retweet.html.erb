@@ -1,8 +1,12 @@
-<%= form_tag do %>
-  <%= label_tag 'agrgar a la conversacion' %>
-  <%= text_field_tag 'content' %>
-  <%= submit_tag %>
-<% end %>
+<div class="card text-white bg-dark">
+  <div class="card-body">
+    <%= form_tag do %>
+      <%= label_tag 'agrgar a la conversacion' %>
+      <%= text_field_tag 'content' %>
+      <%= submit_tag %>
+    <% end %>
+  </div>
+</div>
 
 <%= render 'tweet', tweet: @tweet %>
 
