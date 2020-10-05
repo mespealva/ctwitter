@@ -11,7 +11,7 @@ class TweetsController < ApplicationController
 
   def new
     if(params[:search] && !params[:search].empty? )
-      @tweets = Tweet.where("content LIKE ?", "%#{params[:search]}%").order(created_at: :desc).page(params[:page]).per(50)
+      @tweets = Tweet.where("content LIKE ?", "%#{params[:search]}%").order(created_at: :desc).page(params[:page]).per(50) 
     else
       if user_signed_in?
         @new = Tweet.new
