@@ -9,6 +9,6 @@ class UsersController < ApplicationController
     end
 
     def profile
-      @tweets = Tweet.where(user_id: params[:user_id]).page(params[:page]).per(50)
+      @tweets = Tweet.where(user_id: params[:user_id]).nuevos.page(params[:page]).per(50)
     end
 end

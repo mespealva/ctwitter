@@ -27,7 +27,7 @@
             <div><%=link_to time_ago_in_words(@rt.created_at), tweet_path(@rt) %></div>
             <div class = "text-right">
               <% if @rt.user_id == current_user.id %> 
-                <%= link_to "borrar", tweet_path(t.id), method: :delete %>
+                <%= link_to "borrar", tweet_path(@rt.id), method: :delete %>
               <%end%>
           </div>
         </div>  
