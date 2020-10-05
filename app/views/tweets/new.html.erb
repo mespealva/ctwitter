@@ -1,10 +1,5 @@
 
-<%= form_tag root_path, :method => 'get' do %>
-  <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", :name => nil %>
-  </p>
-<% end %>
+
 <%if user_signed_in?%>
 <div class="card text-white bg-dark">
   <div class="card-body">

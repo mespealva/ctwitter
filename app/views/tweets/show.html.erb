@@ -8,12 +8,18 @@
   <div class="card-header">Likes</div>
   <% @like.each do |l| %>
     <div class="card-body">
-      <h5 class="card-title">
-        <%unless l.user.img.nil? %> 
-          <%= image_tag(l.user.img, size: '100') %>
-        <%end%>
-      </h5>
-      <p class="card-text"><%= l.user.name %></p>
+      <div class="row">
+        <div class="col-2">
+          <h5 class="card-title">
+            <%unless l.user.img.nil? %> 
+              <%= image_tag(l.user.img, size: '100') %>
+            <%end%>
+          </h5>
+        </div>
+        <div class="col-10">    
+          <p class="card-text"><%= l.user.name %></p>
+        </div>
+      </div>
     </div>
   <%end%>
 </div>

@@ -31,6 +31,10 @@
     <div class="container">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
+      <%= form_tag root_path, :method => 'get' do %>
+        <p><%= text_field_tag :search, params[:search] %>
+          <%= submit_tag "Search", :name => nil, class: "btn btn-secondary" %></p>
+      <% end %>
       <%= yield %>
     </div>
     

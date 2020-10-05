@@ -2,6 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 $font-stack:    Helvetica, sans-serif;
+body{
+    background-color: 5A5964;
+}
 
 a:hover {
     color: grey;
