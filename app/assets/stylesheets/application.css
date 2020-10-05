@@ -27,4 +27,8 @@
      color: grey;
      text-decoration: none;
  }
- 
+ img {
+    border-radius: 50%;
+    padding-left: 5%;
+    align-items: center;
+  }
