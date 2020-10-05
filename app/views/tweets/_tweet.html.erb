@@ -1,4 +1,5 @@
-<div class="card text-white bg-dark m-2">
+<%if user_signed_in?%>
+  <div class="card text-white bg-dark m-2">
     <h5 class="card-header">
       <%= link_to @tweet.user.name, profile_path(@tweet.user_id) %>
     </h5>
@@ -42,3 +43,4 @@
       </div>  
     </div>
   </div>
+<%end%>
