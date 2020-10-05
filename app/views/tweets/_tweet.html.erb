@@ -1,6 +1,6 @@
 <div class="card text-white bg-dark m-2">
     <h5 class="card-header">
-      <%=@tweet.user.name%>
+      <%= link_to @tweet.user.name, profile_path(@tweet.user_id) %>
     </h5>
     <%if current_user.is_following?(@tweet.user)%>
      <h5 class="text-right"><%= link_to "des-seguir", follow_path(@tweet.user), method: :post %></h5>

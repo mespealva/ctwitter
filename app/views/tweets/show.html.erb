@@ -1,26 +1,27 @@
 <%= render 'tweet', tweet: @tweet %>
-
-<%unless @tweet.rt.nil?%>
-  <%= render 'retweet', tweet: @rt %>
-<%end%>
-
-<div class="card text-white bg-secondary " >
-  <div class="card-header">Likes</div>
-  <% @like.each do |l| %>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-2">
-          <h5 class="card-title">
-            <%unless l.user.img.nil? %> 
-              <%= image_tag(l.user.img, size: '100') %>
-            <%end%>
-          </h5>
-        </div>
-        <div class="col-10">    
-          <p class="card-text"><%= l.user.name %></p>
-        </div>
-      </div>
-    </div>
+<div class="container">
+  <%unless @tweet.rt.nil?%>
+    <%= render 'retweet', tweet: @rt %>
   <%end%>
-</div>
+  <div class="card text-white bg-secondary " >
+    <div class="card-header">Likes</div>
+    <% @like.each do |l| %>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-2">
+            <h5 class="card-title">
+              <%unless l.user.img.nil? %> 
+                <%= image_tag(l.user.img, size: '100') %>
+              <%end%>
+            </h5>
+          </div>
+          <div class="col-10">    
+            <p class="card-text"><%= link_to l.user.name, profile_path(l.user_id) %></p>
+          </div>
+        </div>
+    </div>
+    <%end%>
+  </div>
+ </div>
+
 <%= link_to 'Back', root_path %>

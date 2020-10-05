@@ -7,4 +7,8 @@ class UsersController < ApplicationController
       end 
       redirect_to root_path
     end
+
+    def profile
+      @tweets = Tweet.where(user_id: params[:user_id]).page(params[:page]).per(50)
+    end
 end

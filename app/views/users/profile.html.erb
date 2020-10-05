@@ -1,0 +1,55 @@
+<% if @tweets.empty?%>
+  <div class="card">
+    <div class="card-body">
+      ningun tweet por aqui, sigue gente o busca mas tweets
+    </div>
+  </div>
+<%else %>
+  <% @tweets.each do |t| %>
+    <div class="card text-white bg-dark m-2">
+      <h5 class="card-header"><%= t.user.name %></h5>
+      <%if current_user.is_following?(t.user)%>
+        <h5 class="text-right"><%= link_to "des-seguir", follow_path(t.user), method: :post %></h5>
+      <%else%>
+        <h5 class="text-right"><%= link_to "agregar", follow_path(t.user), method: :post %></h5>
+      <%end%>
+      <div class="row">
+        <div class="col-2">
+          <%unless t.user.img.nil? %> 
+            <%= image_tag(t.user.img, size:'100') %>
+          <%end%>
+        </div>
+        <div class="col-10">
+          <%if t.has_hashtag?%>
+            <h5 class='card-title'>
+              <% t.separar.each do |word| %>
+                <%if word.start_with?('#')%>
+                  <%= link_to "#{word}", "/?utf8=✓&search=#{word.gsub('#','')}" %>
+                <%else%>
+                  <%= word %>
+                <%end%>
+              <%end%>
+            </h5>
+            <%else%>
+              <h5 class="card-title"><%= t.content %></h5>
+            <%end%>
+            <%= link_to (t.is_liked?(current_user) ?  raw('&#10084') : raw('&#9825')), likes_path(t.id), method: :post %>
+            <span><%= t.likes.count %></p></span>
+            <%= link_to 'retwitiar', retweet_path(t.id) %> 
+            <%= t.count_rt %>
+          <div class="card-footer text-muted">
+            <%=link_to time_ago_in_words(t.created_at), tweet_path(t) %>
+            <div class="text-right">
+              <% if t.user_id == current_user.id %> 
+                <%= link_to "borrar", tweet_path(t.id), method: :delete %>
+              <%end%>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+  <%end%>
+<%end%>
+</div>
+
+<%= paginate @tweets %>

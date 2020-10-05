@@ -14,3 +14,17 @@
  * require_tree .
  *= require_self
  */
+ 
+ body{
+     font-family: Helvetica, sans-serif;
+     background-color: #5A5964;
+ }
+ a{
+     color: white;
+     text-emphasis: none;
+ }
+ a:hover {
+     color: grey;
+     text-decoration: none;
+ }
+ 

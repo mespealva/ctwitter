@@ -1,7 +1,7 @@
 <div class="container">
     <div class="card text-white bg-dark m-2 ml-3">
       <h5 class="card-header">
-        <%= @rt.user.name %>
+        <%= link_to @rt.user.name, profile_path(@rt.user_id) %>
       </h5>
       <%if current_user.is_following?(@rt.user)%>
     <h5 class="text-right"><%= link_to "des-seguir", follow_path(@rt.user), method: :post %></h5>
