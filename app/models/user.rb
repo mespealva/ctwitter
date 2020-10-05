@@ -36,4 +36,8 @@ class User < ApplicationRecord
   def retweets_given
     self.tweets.where.not(rt: nil).count
   end 
+
+  def self.busca(busca)
+    find(busca)
+  end
 end

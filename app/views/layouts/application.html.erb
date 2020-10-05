@@ -10,34 +10,58 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-      <%= link_to 'twitter', root_path, class: "navbar-brand" %>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <%if user_signed_in?%>
-            <%= link_to ' cerrar sesion ', destroy_user_session_path, method: :delete, class: "nav-item nav-link active" %>
-            <span class="navbar-text ">Bienvenid@ <%= current_user.name %>!</span>
-            <%else%>
-            <%= link_to 'registrate', new_user_registration_path, class: "nav-item nav-link active"%>
-            <%= link_to 'iniciar sesion ', new_user_session_path, class: "nav-item nav-link active"%>
-          <%end%>
+    <div class="container-fluid">
+      <div class="row ">
+        <div class="col-3 bg-secondary text-white border-right border-dark">
+          <div class="wrapper ">
+            <div class="sidebar-header p-3">
+              <%= link_to 'TWITTERclone', root_path, class: "navbar-brand" %>
+            </div>
+            <nav class="p-3 "id="sidebar">
+              <%if user_signed_in?%>
+                <%unless current_user.img.nil? %> 
+                  <%= image_tag(current_user.img, size:'100') %>
+                <%end%>
+                <p class="navbar-text">Bienvenid@ <%= link_to current_user.name, profile_path(current_user.id) %>!</p>
+                <p><%= link_to ' cerrar sesion ', destroy_user_session_path, method: :delete, class: "nav-item p-3" %></p>
+              <%else%>
+                <p><%= link_to 'registrate', new_user_registration_path, class: "nav-item nav-link active"%></p>
+                <p><%= link_to 'iniciar sesion ', new_user_session_path, class: "nav-item nav-link active"%></p>
+              <%end%>
+            </nav>
+            <%if user_signed_in?%>
+            <%unless current_user.friends.nil? %>
+              <div id="content">
+                <p class= "text-center pt-5">Tus Amigos</p>
+                <div class="row">
+                  <%current_user.friends.each do |f| %>
+                    <div class="col-6 pt-4">
+                      <% @friend = User.busca(f.friend_id) %>
+                      <%= link_to @friend.name, profile_path(@friend.id) %>
+                      <%unless @friend.img.nil? %> 
+                        <%= image_tag(@friend.img, size:'100') %>
+                      <%end%>
+                    </div>
+                  <%end%>
+                </div>
+              </div>
+            <%end%>
+            <%end%>
+          </div>
         </div>
-        </div>
+        <div class="col-9">
+          <div class="container">
+            <p class="notice text-white"><%= notice %></p>
+            <p class="alert text-white"><%= alert %></p>
+            <%= form_tag root_path, :method => 'get' do %>
+              <p><%= text_field_tag :search, params[:search] %>
+              <%= submit_tag "Search", :name => nil, class: "btn btn-secondary" %></p>
+            <% end %>
+            <%= yield %>
+          </div>
+        </div>  
       </div>
-    </nav>
-    <div class="container">
-      <p class="notice text-white"><%= notice %></p>
-      <p class="alert text-white"><%= alert %></p>
-      <%= form_tag root_path, :method => 'get' do %>
-        <p><%= text_field_tag :search, params[:search] %>
-          <%= submit_tag "Search", :name => nil, class: "btn btn-secondary" %></p>
-      <% end %>
-      <%= yield %>
     </div>
-    
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
