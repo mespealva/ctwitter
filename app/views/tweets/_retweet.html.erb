@@ -23,7 +23,11 @@
             <%= link_to 'retwitiar', retweet_path(@rt) %>          
           </div>
           <div class="card-footer text-muted">
-            <%=link_to time_ago_in_words(@rt.created_at), tweet_path(@rt) %>
+            <div><%=link_to time_ago_in_words(@rt.created_at), tweet_path(@rt) %></div>
+            <div class = "text-right">
+              <% if t.user_id == current_user.id %> 
+                <%= link_to "borrar", tweet_path(t.id), method: :delete %>
+              <%end%>
           </div>
         </div>  
       </div>

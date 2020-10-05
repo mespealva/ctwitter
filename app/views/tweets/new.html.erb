@@ -52,7 +52,7 @@
           <span><%= t.likes.count %></p></span>
           <%= link_to 'retwitiar', retweet_path(t.id) %> 
           <%= t.count_rt %>
-        </div>
+        
         <div class="card-footer text-muted">
           <%=link_to time_ago_in_words(t.created_at), tweet_path(t) %>
           <div class="text-right">
@@ -60,6 +60,7 @@
               <%= link_to "borrar", tweet_path(t.id), method: :delete %>
             <%end%>
           </div>
+        </div>
         </div>
       </div>  
     </div>
