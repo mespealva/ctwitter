@@ -19,9 +19,9 @@
           <div class="card-ody">
             <h5 class="card-title"><%=@rt.content%></h5>
             <p><%= link_to (@rt.is_liked?(current_user) ?  raw('&#10084') : raw('&#9825')), likes_path(@rt.id), method: :post %>
-            <span><%= @rt.likes.count %></p></span>
-            <%= @rt.count_rt %>  
-            <%= link_to 'retwitiar', retweet_path(@rt) %>          
+            <span><%= @rt.likes.count %></p></span> 
+            <%= link_to 'retwitiar', retweet_path(@rt) %>
+            <%= @rt.count_rt %>           
           </div>
           <div class="card-footer text-muted">
             <div><%=link_to time_ago_in_words(@rt.created_at), tweet_path(@rt) %></div>
