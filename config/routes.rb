@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users, controllers:{
@@ -7,6 +8,9 @@ Rails.application.routes.draw do
   }
   post 'follow/:user_id', to:'users#follow', as: 'follow'
   resources :tweets, except:[:index, :edit, :update]
+  get 'api/news'
+  post 'api/new'
+  get 'api/:fecha/:fecha', to:'api/fecha'
   get 'user/:user_id', to:'users#profile', as: 'profile'
   get 'retweet/:id', to: 'tweets#new_retweet', as: 'retweet' 
   post 'retweet/:id', to: 'tweets#retweet'
