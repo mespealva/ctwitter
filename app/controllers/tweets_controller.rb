@@ -7,6 +7,8 @@ class TweetsController < ApplicationController
     unless @tweet.rt.nil?
       @rt = Tweet.find(@tweet.rt)
     end
+    @friend = Friend.amigos(current_user)
+    @amiges = @friend.map {|f| f= User.find(f.friend_id)}
   end
 
   def new
@@ -22,12 +24,13 @@ class TweetsController < ApplicationController
         @tweets = Tweet.all.nuevos.page(params[:page]).per(50)
       end
     end
+    @friend = Friend.amigos(current_user)
+    @amiges = @friend.map {|f| f= User.find(f.friend_id)}
   end
 
   def create
     @tweet = Tweet.new(tweet_params)
     @tweet.user_id = current_user.id 
-    #@tweet.content = @tweet.add_hashtags
     if @tweet.save
       redirect_to root_path, notice: 'Has Tweetiado' 
     else
@@ -52,6 +55,8 @@ class TweetsController < ApplicationController
    def new_retweet
     new_tweet= Tweet.new
     @tweet = Tweet.find(params[:id])
+    @friend = Friend.amigos(current_user)
+    @amiges = @friend.map {|f| f= User.find(f.friend_id)}
    end
 
    def retweet

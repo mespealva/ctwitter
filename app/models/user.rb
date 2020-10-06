@@ -37,7 +37,7 @@ class User < ApplicationRecord
     self.tweets.where.not(rt: nil).count
   end 
 
-  def self.busca(busca)
-    find(busca)
+  def busca(id)
+    User.find(id)
   end
 end

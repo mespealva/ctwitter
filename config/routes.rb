@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get 'api/news', to:'api#news'
   post 'api/new', to:'api#new'
   get 'api/:fecha1/:fecha2', to:'api#fecha'
-  get 'user/:user_id', to:'users#profile', as: 'profile'
+  get 'user/:id', to:'users#profile', as: 'profile'
   get 'retweet/:id', to: 'tweets#new_retweet', as: 'retweet' 
   post 'retweet/:id', to: 'tweets#retweet'
   post 'likes/:id', to: 'tweets#likes', as: 'likes'

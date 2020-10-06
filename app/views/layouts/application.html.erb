@@ -31,18 +31,17 @@
               <%end%>
             </nav>
             <%if user_signed_in?%>
-            <%unless current_user.friends.nil? %>
+            <%unless @amiges.empty? %>
               <div id="content">
                 <h5 class= "text-center pt-5">Tus Amigos</h5>
                 <div class="row">
-                  <%current_user.friends.each do |f| %>
+                  <%@amiges.each do |f| %>
                     <div class="col-6 pt-4">
-                      <% @friend = User.busca(f.friend_id) %>
-                      <h6><%= link_to @friend.name, profile_path(@friend.id), class: "sidelink" %></h6>
-                      <%unless @friend.img.nil? %> 
-                        <%= image_tag(@friend.img, size:'100') %>
-                      <%end%>
-                    </div>
+                      <h6><%= link_to f.name, profile_path(f.id), class: "sidelink" %></h6>  
+                    <%unless f.img.nil? %> 
+                      <%= image_tag(f.img, size:'100') %>
+                    <%end%>
+                  </div>
                   <%end%>
                 </div>
               </div>

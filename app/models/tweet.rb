@@ -63,6 +63,7 @@ class Tweet < ApplicationRecord
         #return new_array
         return array
       end
+      
       def self.busca(busca)
         find(busca)
       end
