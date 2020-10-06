@@ -13,7 +13,6 @@
 * password: password 
 
 #### https://serene-refuge-54163.herokuapp.com/api/new
-* sin vistas solo postman
-* basic authentificate
-    * user: maria@maria
-    * password: maria123
+* sin vistas, solo postman
+* basic authentificate con devise
+    * mismos users que arriba

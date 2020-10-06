@@ -1,10 +1,13 @@
 class ApiController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :http_basic_authenticate, only:[:new]
+  before_action :check_auth, only:[:new]
 
-  def http_basic_authenticate
-    authenticate_or_request_with_http_basic do |username, password|
-      username == "maria@maria" && password == "maria123"
+  def check_auth
+    authenticate_or_request_with_http_basic do |email, password|
+      resource = User.find_by(email: email)
+      if resource.valid_password?(password)
+        sign_in :user, resource
+      end
     end
   end
   
@@ -33,7 +36,7 @@ class ApiController < ApplicationController
   def new
     @tweet = Tweet.new
     @tweet.content = params[:content] 
-    @tweet.user_id = params[:user_id]
+    @tweet.user_id = current_user.id
     if @tweet.save
       render json: @tweet, status: :created, location: @tweet
     else
@@ -60,9 +63,5 @@ class ApiController < ApplicationController
     respond_to do |format|
       format.json { render json: tweets }
     end
-  end
-  private
-  def tweet_params
-    params.require(:tweet).permit(:content)
   end
 end
