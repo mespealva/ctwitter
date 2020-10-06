@@ -9,7 +9,8 @@ class Tweet < ApplicationRecord
     scope :nuevos, -> {order("created_at DESC") } 
 
     scope :tweets_for_me, -> (user) { where(user_id: user.friends.pluck(:friend_id).push(user.id)) }
-
+    
+    scope :fifty, ->  {order("created_at DESC").last(50)}
     def is_liked?(user)
         if self.liking_users.include?(user)
           true
@@ -28,6 +29,10 @@ class Tweet < ApplicationRecord
     
       def count_rt
         Tweet.where(rt: self.id).count
+      end
+
+      def ret
+        Tweet.where(rt: self.id)
       end
 
       def self.search(search)
