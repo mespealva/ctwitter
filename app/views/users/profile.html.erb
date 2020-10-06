@@ -1,4 +1,4 @@
-<% if @tweets.empty?%>
+<% if @tweets.nil?%>
   <div class="card">
     <div class="card-body">
       ningun tweet por aqui, sigue gente o busca mas tweets
@@ -51,5 +51,3 @@
   <%end%>
 <%end%>
 </div>
-
-<%= paginate @tweets %>
