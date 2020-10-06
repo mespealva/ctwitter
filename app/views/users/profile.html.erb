@@ -5,7 +5,17 @@
     </div>
   </div>
 <%else %>
+
   <% @tweets.each do |t| %>
+  <div class="row bg-light">
+    <div class="col-3 m-2"><%unless t.user.img.nil? %> 
+    <%= image_tag(t.user.img, size:'200') %>
+  <%end%></div>
+  <div class="col-8">
+    <h2 class="m-5"><%=t.user.name%></h2>
+    <h4 class="mt-3">en TwitterClone desde <%=(t.user.created_at).to_date%></h4>
+  </div>
+  </div>
     <div class="card text-white bg-dark m-2">
       <h5 class="card-header"><%= t.user.name %></h5>
       <%if current_user.is_following?(t.user)%>
@@ -48,6 +58,11 @@
         </div>
       </div>  
     </div>
+    <%unless t.rt.nil?%>
+      <% @rt = Tweet.busca(t.rt)%>
+      <%= render 'tweets/retweet', tweet: @rt %>
+    <%end%>  
   <%end%>
-<%end%>
 </div>
+<%end%>
+
