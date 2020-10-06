@@ -9,8 +9,7 @@ class UsersController < ApplicationController
     end
 
     def profile
-      @tweets = Tweet.where(user_id: params[:user_id]).nuevos.page(params[:page]).per(50)
-      
+      @tweets = Tweet.where(user_id: params[:user_id]).nuevos.page(params[:page]).per(50)  
       @friend = Friend.amigos(current_user)
       @amiges = @friend.map {|f| f= User.find(f.friend_id)}
     end

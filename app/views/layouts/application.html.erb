@@ -33,7 +33,7 @@
             <%if user_signed_in?%>
             <%unless @amiges.empty? %>
               <div id="content">
-                <h5 class= "text-center pt-5">Tus Amigos</h5>
+                <h5 class= "text-center pt-5">Tus Amigos(<%= current_user.friends_count%>)</h5>
                 <div class="row">
                   <%@amiges.each do |f| %>
                     <div class="col-6 pt-4">
