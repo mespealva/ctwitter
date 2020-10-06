@@ -11,3 +11,8 @@
 ### https://serene-refuge-54163.herokuapp.com/admin
 * user: admin@example.com 
 * password: password 
+
+#### https://serene-refuge-54163.herokuapp.com/api/new
+* basic authentificate
+    * user: maria@maria
+    * password: maria123

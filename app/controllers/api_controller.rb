@@ -1,6 +1,13 @@
 class ApiController < ApplicationController
-  http_basic_authenticate_with name: "user", password: "user123", only: :new
+  skip_before_action :verify_authenticity_token
+  before_action :http_basic_authenticate, only:[:new]
 
+  def http_basic_authenticate
+    authenticate_or_request_with_http_basic do |username, password|
+      username == "maria@maria" && password == "maria123"
+    end
+  end
+  
   def news
     @fifty = Tweet.fifty
     if @fifty.nil?
@@ -24,7 +31,14 @@ class ApiController < ApplicationController
   end
 
   def new
-
+    @tweet = Tweet.new
+    @tweet.content = params[:content] 
+    @tweet.user_id = params[:user_id]
+    if @tweet.save
+      render json: @tweet, status: :created, location: @tweet
+    else
+      render json: @tweet.errors, status: :unprocessable_entity
+    end
   end
 
   def fecha
@@ -46,5 +60,9 @@ class ApiController < ApplicationController
     respond_to do |format|
       format.json { render json: tweets }
     end
+  end
+  private
+  def tweet_params
+    params.require(:tweet).permit(:content)
   end
 end
