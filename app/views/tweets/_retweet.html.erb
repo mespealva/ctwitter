@@ -1,5 +1,5 @@
 <%if user_signed_in?%>
-<div class="container">
+  <div class="container">
     <div class="card text-white bg-dark pl-3 ml-5">
       <h5 class="card-header">
         <%= link_to @rt.user.name, profile_path(@rt.user_id) %>
@@ -24,11 +24,14 @@
             <%= @rt.count_rt %>           
           </div>
           <div class="card-footer text-muted">
-            <div><%=link_to time_ago_in_words(@rt.created_at), tweet_path(@rt) %></div>
+            <div>
+              <%=link_to time_ago_in_words(@rt.created_at), tweet_path(@rt) %>
+            </div>
             <div class = "text-right">
               <% if @rt.user_id == current_user.id %> 
                 <%= link_to "borrar", tweet_path(@rt.id), method: :delete %>
               <%end%>
+            </div>
           </div>
         </div>  
       </div>
