@@ -16,10 +16,12 @@
     <% @tweets.each do |t| %>
       <div class="card text-white bg-dark m-2">
         <h5 class="card-header"><%= link_to t.user.name, profile_path(t.user_id) %></h5>
-        <%if current_user.is_following?(t.user)%>
-          <h5 class="text-right"><%= link_to "des-seguir", follow_path(t.user), method: :post %></h5>
-        <%else%>
-          <h5 class="text-right"><%= link_to "agregar", follow_path(t.user), method: :post %></h5>
+        <% unless t.user_id == current_user.id %>
+          <%if current_user.is_following?(t.user)%>
+            <h5 class="text-right"><%= link_to "des-seguir", follow_path(t.user), method: :post %></h5>
+          <%else%>
+            <h5 class="text-right"><%= link_to "agregar", follow_path(t.user), method: :post %></h5>
+          <%end%>
         <%end%>
         <div class="row">
           <div class="col-2">

@@ -3,10 +3,12 @@
     <h5 class="card-header">
       <%= link_to @tweet.user.name, profile_path(@tweet.user_id) %>
     </h5>
-    <%if current_user.is_following?(@tweet.user)%>
-     <h5 class="text-right"><%= link_to "des-seguir", follow_path(@tweet.user), method: :post %></h5>
-    <%else%>
-      <h5 class="text-right"><%= link_to "agregar", follow_path(@tweet.user), method: :post %></h5>
+    <% unless @tweet.user_id == current_user.id %>
+      <%if current_user.is_following?(@tweet.user)%>
+        <h5 class="text-right"><%= link_to "des-seguir", follow_path(@tweet.user), method: :post %></h5>
+      <%else%>
+        <h5 class="text-right"><%= link_to "agregar", follow_path(@tweet.user), method: :post %></h5>
+      <%end%>
     <%end%>
     <div class="row">
       <div class="col-2">

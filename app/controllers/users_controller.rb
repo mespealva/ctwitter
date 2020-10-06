@@ -12,6 +12,6 @@ class UsersController < ApplicationController
       @tweets = Tweet.where(user_id: params[:id]).order("created_at DESC")
       @friend = Friend.amigos(current_user)
       @amiges = @friend.map {|f| f= User.find(f.friend_id)}
-      
+      @user = User.find(params[:id])
     end
 end
