@@ -36,10 +36,10 @@
                 <h5 class= "text-center pt-5">Tus Amigos(<%= current_user.friends_count%>)</h5>
                 <div class="row">
                   <%@amiges.each do |f| %>
-                    <div class="col-6 pt-4">
+                    <div class="col-3 pt-4">
                       <h6><%= link_to f.name, profile_path(f.id), class: "sidelink" %></h6>  
                     <%unless f.img.nil? %> 
-                      <%= image_tag(f.img, size:'100') %>
+                      <%= image_tag(f.img, size:'50') %>
                     <%end%>
                   </div>
                   <%end%>
