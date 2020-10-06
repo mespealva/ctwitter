@@ -1,65 +1,69 @@
 <%if user_signed_in?%>
-<div class="card text-white bg-dark">
-  <div class="card-body">
-    <h1>Que piensas?</h1>
-    <%= render 'form', tweet: @new %>
+  <div class="card text-white bg-dark">
+    <div class="card-body">
+      <h1>Que piensas?</h1>
+      <%= render 'form', tweet: @new %>
     </div>
   </div>
 
-<% if @tweets.empty?%>
-<div class="card">
-  <div class="card-body">
-    ningun tweet por aqui, sigue gente o busca mas tweets
-  </div>
-</div>
-<%else %>
-<% @tweets.each do |t| %>
-  <div class="card text-white bg-dark m-2">
-    <h5 class="card-header"><%= link_to t.user.name, profile_path(t.user_id) %></h5>
-    <%if current_user.is_following?(t.user)%>
-      <h5 class="text-right"><%= link_to "des-seguir", follow_path(t.user), method: :post %></h5>
-    <%else%>
-      <h5 class="text-right"><%= link_to "agregar", follow_path(t.user), method: :post %></h5>
-    <%end%>
-    <div class="row">
-      <div class="col-2">
-        <%unless t.user.img.nil? %> 
-          <%= image_tag(t.user.img, size:'100') %>
-        <%end%>
+  <% if @tweets.empty?%>
+    <div class="card mt-4">  
+      <div class="card-body">
+        ningun tweet por aqui, sigue gente o busca mas tweets
       </div>
-      <div class="col-10">
-        <%if t.has_hashtag?%>
-          <h5 class='card-title'>
-            <% t.separar.each do |word| %>
-              <%if word.start_with?('#')%>
-                <%= link_to "#{word}", "/?utf8=✓&search=#{word.gsub('#','')}" %>
-              <%else%>
-                <%= word %>
-              <%end%>
-            <%end%>
-          </h5>
-          <%else%>
-            <h5 class="card-title"><%= t.content %></h5>
-          <%end%>
-          <%= link_to (t.is_liked?(current_user) ?  raw('&#10084') : raw('&#9825')), likes_path(t.id), method: :post %>
-          <span><%= t.likes.count %></p></span>
-          <%= link_to 'retwitiar', retweet_path(t.id) %> 
-          <%= t.count_rt %>
-        
-        <div class="card-footer text-muted">
-          <%=link_to time_ago_in_words(t.created_at), tweet_path(t) %>
-          <div class="text-right">
-            <% if t.user_id == current_user.id %> 
-              <%= link_to "borrar", tweet_path(t.id), method: :delete %>
+    </div>
+  <%else %>
+    <% @tweets.each do |t| %>
+      <div class="card text-white bg-dark m-2">
+        <h5 class="card-header"><%= link_to t.user.name, profile_path(t.user_id) %></h5>
+        <%if current_user.is_following?(t.user)%>
+          <h5 class="text-right"><%= link_to "des-seguir", follow_path(t.user), method: :post %></h5>
+        <%else%>
+          <h5 class="text-right"><%= link_to "agregar", follow_path(t.user), method: :post %></h5>
+        <%end%>
+        <div class="row">
+          <div class="col-2">
+            <%unless t.user.img.nil? %> 
+              <%= image_tag(t.user.img, size:'100') %>
             <%end%>
           </div>
-        </div>
-        </div>
-      </div>  
-    </div>
+          <div class="col-10">
+            <%if t.has_hashtag?%>
+              <h5 class='card-title'>
+                <% t.separar.each do |word| %>
+                  <%if word.start_with?('#')%>
+                    <%= link_to "#{word}", "/?utf8=✓&search=#{word.gsub('#','')}" %>
+                  <%else%>
+                    <%= word %>
+                  <%end%>
+                <%end%>
+              </h5>
+            <%else%>
+              <h5 class="card-title"><%= t.content %></h5>
+            <%end%>
+            <%= link_to (t.is_liked?(current_user) ?  raw('&#10084') : raw('&#9825')), likes_path(t.id), method: :post %>
+            <span><%= t.likes.count %></p></span>
+            <%= link_to 'retwitiar', retweet_path(t.id) %> 
+            <%= t.count_rt %>    
+            <div class="card-footer text-muted">
+              <%=link_to time_ago_in_words(t.created_at), tweet_path(t) %>
+              <div class="text-right">
+                <% if t.user_id == current_user.id %> 
+                  <%= link_to "borrar", tweet_path(t.id), method: :delete %>
+                <%end%>
+              </div>
+            </div>
+          </div>
+        </div>  
+      </div>
+        <%unless t.rt.nil?%>
+          <% @rt = Tweet.busca(t.rt)%>
+          <%= render 'retweet', tweet: @rt %>
+        <%end%>  
+    <%end%>
+  </div>
   <%end%>
 <%end%>
-</div>
-<%end%>
+
 
   <%= paginate @tweets %>

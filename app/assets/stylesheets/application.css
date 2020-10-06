@@ -37,5 +37,8 @@
     position: sticky;
     top: 0;
     }
+.sidelink:hover{
+    color:black;
+}
 
     

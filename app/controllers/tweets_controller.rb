@@ -17,6 +17,7 @@ class TweetsController < ApplicationController
         @new = Tweet.new
         @like = Like.new
         @tweets = Tweet.nuevos.tweets_for_me(current_user).page(params[:page]).per(50)
+        #@rt = Tweet.new
       else
         @tweets = Tweet.all.nuevos.page(params[:page]).per(50)
       end
