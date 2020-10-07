@@ -37,6 +37,7 @@ class ApiController < ApplicationController
     @tweet = Tweet.new
     @tweet.content = params[:content] 
     @tweet.user_id = current_user.id
+    @tweet.rt = params[:rt]
     if @tweet.save
       render json: @tweet, status: :created, location: @tweet
     else
