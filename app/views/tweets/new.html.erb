@@ -16,6 +16,7 @@
     <%= render 'tweets', tweets: @tweets%>
   <%end%>
 <%end%>
-<%if @tweets.count>50%>
+<% unless @tweets.nil?%>
   <%= paginate @tweets %>
 <%end%>
+

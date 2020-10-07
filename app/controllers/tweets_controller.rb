@@ -24,6 +24,7 @@ class TweetsController < ApplicationController
         #@tweets = Tweet.all.nuevos.page(params[:page]).per(50)
       end
     end
+    
     @friend = Friend.amigos(current_user)
     @amiges = @friend.map {|f| f= User.find(f.friend_id)}
     @rt = Tweet.new
