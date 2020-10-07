@@ -1,7 +1,6 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: [ :show, :destroy, :likes, :new_retweet, :retweet]
 
- 
   def show
     @like = Like.where("tweet_id = ?", params[:id])
     unless @tweet.rt.nil?

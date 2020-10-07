@@ -16,6 +16,10 @@
         <div class="col-3 bg-secondary text-white border-right border-dark">
           <div class="wrapper ">
             <div class="sidebar-header p-3">
+              <%= form_tag root_path, :method => 'get' do %>
+                <p><%= text_field_tag :search, params[:search] %>
+                <%= submit_tag "Search", :name => nil, class: "btn btn-secondary" %></p>
+              <% end %>
               <%= link_to 'TwitterClone', root_path, class: "navbar-brand sidelink" %>
             </div>
             <nav class="p-3 "id="sidebar">
@@ -53,10 +57,7 @@
           <div class="container">
             <p class="notice text-white"><%= notice %></p>
             <p class="alert text-white"><%= alert %></p>
-            <%= form_tag root_path, :method => 'get' do %>
-              <p><%= text_field_tag :search, params[:search] %>
-              <%= submit_tag "Search", :name => nil, class: "btn btn-secondary" %></p>
-            <% end %>
+            
             <%= yield %>
           </div>
         </div>  
