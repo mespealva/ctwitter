@@ -20,12 +20,13 @@ class TweetsController < ApplicationController
         @like = Like.new
         @tweets = Tweet.nuevos.tweets_for_me(current_user).page(params[:page]).per(50)
         #@rt = Tweet.new
-      else
-        @tweets = Tweet.all.nuevos.page(params[:page]).per(50)
+      #else
+        #@tweets = Tweet.all.nuevos.page(params[:page]).per(50)
       end
     end
     @friend = Friend.amigos(current_user)
     @amiges = @friend.map {|f| f= User.find(f.friend_id)}
+    @rt = Tweet.new
   end
 
   def create
@@ -53,15 +54,15 @@ class TweetsController < ApplicationController
   end
 
    def new_retweet
-    new_tweet= Tweet.new
+    @new_ = Tweet.new
     @tweet = Tweet.find(params[:id])
     @friend = Friend.amigos(current_user)
     @amiges = @friend.map {|f| f= User.find(f.friend_id)}
    end
 
    def retweet
-     new_tweet = Tweet.create(content: params[:content], user: current_user, rt: @tweet.id)
-     if new_tweet.save
+     @new_ = Tweet.create(content: params[:content], user: current_user, rt: @tweet.id)
+     if @new_.save
       redirect_to root_path, notice: 'se retwitio' 
     else
       redirect_to root_path, notice: 'ERROR!' 

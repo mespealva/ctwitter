@@ -13,5 +13,6 @@ class UsersController < ApplicationController
       @friend = Friend.amigos(current_user)
       @amiges = @friend.map {|f| f= User.find(f.friend_id)}
       @user = User.find(params[:id])
+      @rt =Tweet.new
     end
 end

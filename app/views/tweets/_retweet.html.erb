@@ -1,42 +1,43 @@
-<%if user_signed_in?%>
-  <div class="container">
-    <div class="card text-white bg-dark pl-3 ml-5">
-      <h5 class="card-header">
-        <%= link_to @rt.user.name, profile_path(@rt.user_id) %>
-      </h5>
-      <% unless @rt.user_id == current_user.id %>
-        <%if current_user.is_following?(@rt.user)%>
-          <h5 class="text-right"><%= link_to "des-seguir", follow_path(@rt.user), method: :post %></h5>
-        <%else%>
-          <h5 class="text-right"><%= link_to "agregar", follow_path(@rt.user), method: :post %></h5>
+
+  <%if user_signed_in?%>
+    <div class="container">
+      <div class="card text-white bg-dark pl-3 ml-5">
+        <h5 class="card-header">
+          <%= link_to @rt.user.name, profile_path(@rt.user_id) %>
+        </h5>
+        <% unless @rt.user_id == current_user.id %>
+          <%if current_user.is_following?(@rt.user)%>
+            <h5 class="text-right"><%= link_to "des-seguir", follow_path(@rt.user), method: :post %></h5>
+          <%else%>
+            <h5 class="text-right"><%= link_to "agregar", follow_path(@rt.user), method: :post %></h5>
+          <%end%>
         <%end%>
-      <%end%>
-      <div class="row">
-        <div class="col-2">
-          <%unless @rt.user.img.nil? %> 
-              <%= image_tag(@rt.user.img, size:'100') %>
-            <%end%>
-        </div>
-        <div class="col-10">
-          <div class="card-ody">
-            <h5 class="card-title"><%=@rt.content%></h5>
-            <p><%= link_to (@rt.is_liked?(current_user) ?  raw('&#10084') : raw('&#9825')), likes_path(@rt.id), method: :post %>
-            <span><%= @rt.likes.count %></p></span> 
-            <%= link_to 'retwitiar', retweet_path(@rt) %>
-            <%= @rt.count_rt %>           
-          </div>
-          <div class="card-footer text-muted">
-            <div>
-              <%=link_to time_ago_in_words(@rt.created_at), tweet_path(@rt) %>
-            </div>
-            <div class = "text-right">
-              <% if @rt.user_id == current_user.id %> 
-                <%= link_to "borrar", tweet_path(@rt.id), method: :delete %>
+        <div class="row">
+          <div class="col-2">
+            <%unless @rt.user.img.nil? %> 
+                <%= image_tag(@rt.user.img, size:'100') %>
               <%end%>
-            </div>
           </div>
-        </div>  
+          <div class="col-10">
+            <div class="card-ody">
+              <h5 class="card-title"><%= @rt.content%></h5>
+              <p><%= link_to (@rt.is_liked?(current_user) ?  raw('&#10084') : raw('&#9825')), likes_path(@rt.id), method: :post %>
+              <span><%= @rt.likes.count %></p></span> 
+              <%= link_to 'retwitiar', retweet_path(@rt) %>
+              <%= @rt.count_rt %>           
+            </div>
+            <div class="card-footer text-muted">
+              <div>
+                <%=link_to time_ago_in_words(@rt.created_at), tweet_path(@rt) %>
+              </div>
+              <div class = "text-right">
+                <% if @rt.user_id == current_user.id %> 
+                  <%= link_to "borrar", tweet_path(@rt.id), method: :delete %>
+                <%end%>
+              </div>
+            </div>
+          </div>  
+        </div>
       </div>
     </div>
-  </div>
-<%end%>
+  <%end%>
