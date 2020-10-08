@@ -10,7 +10,7 @@ class Tweet < ApplicationRecord
 
     scope :tweets_for_me, -> (user) { where(user_id: user.friends.pluck(:friend_id).push(user.id)) }
     
-    scope :fifty, ->  {order("created_at DESC").last(50)}
+    scope :fifty, ->  {order("created_at DESC").first(50)}
     
     def is_liked?(user)
         if self.liking_users.include?(user)
