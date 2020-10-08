@@ -1,9 +1,5 @@
 class User < ApplicationRecord
-  #after_destroy :revisar
-
-  #def revisar
-  #  Friend.delete_all(friend_id: params[:id])
-  #end
+  after_destroy { |record| Friend.where(friend_id: :id).delete_all}
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

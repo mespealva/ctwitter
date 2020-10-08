@@ -1,33 +1,28 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: [ :show, :destroy, :likes, :new_retweet, :retweet]
+  before_action :set_var, only:[:new, :new_retweet]
 
   def show
     @like = Like.where("tweet_id = ?", params[:id])
+    unless Tweet.all.ids.include?(@tweet.rt)
+      @tweet.rt = nil
+    end
     unless @tweet.rt.nil?
       @rt = Tweet.find(@tweet.rt)
     end
+    
     @friend = Friend.amigos(current_user)
     @friends = @friend.reject {|f| !User.all.ids.include?(f.friend_id)}
     @amiges = @friends.map {|f| f= User.find(f.friend_id)}
   end
 
   def new
-    if(params[:search] && !params[:search].empty? )
+    if(params[:search])
       @tweets = Tweet.where("content LIKE ?", "%#{params[:search]}%").order(created_at: :desc).page(params[:page]).per(50) 
-      @friend = Friend.amigos(current_user)
-      @friends = @friend.reject {|f| !User.all.ids.include?(f.friend_id)}
-      @amiges = @friends.map {|f| f= User.find(f.friend_id)}
-      @rt =Tweet.new
-    else
-      if user_signed_in?
-        @new = Tweet.new
-        @like = Like.new
-        @tweets = Tweet.nuevos.tweets_for_me(current_user).page(params[:page]).per(50)
-        @friend = Friend.amigos(current_user)
-        @friends = @friend.reject {|f| !User.all.ids.include?(f.friend_id)}
-        @amiges = @friends.map {|f| f= User.find(f.friend_id)}
-        @rt = Tweet.new
-      end
+      
+    elsif user_signed_in?
+      @new = Tweet.new
+      @tweets = Tweet.nuevos.tweets_for_me(current_user).page(params[:page]).per(50)
     end
   end
 
@@ -56,6 +51,9 @@ class TweetsController < ApplicationController
   end
 
    def new_retweet
+    unless Tweet.all.ids.include?(@tweet.rt)
+      @tweet.rt = nil
+    end
     @new_ = Tweet.new
     @tweet = Tweet.find(params[:id])
     @friend = Friend.amigos(current_user)
@@ -72,6 +70,7 @@ class TweetsController < ApplicationController
     end
    end 
 
+   
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tweet
@@ -82,4 +81,12 @@ class TweetsController < ApplicationController
     def tweet_params
       params.require(:tweet).permit(:content)
     end
+    
+    def set_var
+      @rt = Tweet.new
+      @like = Like.new
+      @friend = Friend.amigos(current_user)
+      @friends = @friend.reject {|f| !User.all.ids.include?(f.friend_id)}
+      @amiges = @friends.map {|f| f= User.find(f.friend_id)}
+   end
 end

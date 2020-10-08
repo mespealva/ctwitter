@@ -66,6 +66,10 @@ class Tweet < ApplicationRecord
       end
       
       def buscar(busca)
-        Tweet.find(busca)
+        if Tweet.all.ids.include?(self.rt) 
+          Tweet.find(busca)
+        else
+          self.rt = nil
+        end
       end
 end

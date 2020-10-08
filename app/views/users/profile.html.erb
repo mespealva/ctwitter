@@ -7,8 +7,8 @@
 <%else %>
 <div class="row">
     <div class="col-3 m-2">
-      <%unless @user.img.nil? %> 
-        <%= image_tag(@user.img, size:'200') %>
+      <%unless @user.img_url.nil? %> 
+        <%= image_tag(@user.img_url, size:'200') %>
       <%end%>
     </div>
   <div class="col-8">
@@ -21,15 +21,15 @@
       <h5 class="card-header"><%= @user.name %></h5>
       <% unless t.user_id == current_user.id %>
         <%if current_user.is_following?(t.user)%>
-          <h5 class="text-right"><%= link_to "des-seguir", unfollow_path(t.user), method: :post %></h5>
+          <h5 class="text-right"><%= link_to "des-seguir", follow_path(t.user), method: :post %></h5>
         <%else%>
           <h5 class="text-right"><%= link_to "agregar", follow_path(t.user), method: :post %></h5>
         <%end%>
       <%end%>
       <div class="row">
         <div class="col-2">
-          <%unless @user.img.nil? %> 
-            <%= image_tag(@user.img, size:'100') %>
+          <%unless @user.img_url.nil? %> 
+            <%= image_tag(@user.img_url, size:'100') %>
           <%end%>
         </div>
         <div class="col-10">
@@ -62,7 +62,7 @@
       </div>  
     </div>
     <%unless t.rt.nil?%>
-      <% @rt = @rt.buscar(t.rt)%>
+      <% @rt = Tweet.find(t.rt)%>
       <%= render 'tweets/retweet', tweet: @rt %>
     <%end%>  
   <%end%>

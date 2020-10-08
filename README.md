@@ -16,3 +16,4 @@
 * sin vistas, solo postman
 * basic authentificate con devise
     * mismos users que arriba
+* fecha aaaa-mm-dd
