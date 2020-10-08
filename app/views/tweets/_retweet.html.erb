@@ -20,9 +20,9 @@
           </div>
           <div class="col-10">
             <div class="card-ody">
-              <%if @tweet.has_hashtag?%>
+              <%if @rt.has_hashtag?%>
                 <h5 class='card-title'>
-                <% @tweet.separar.each do |word| %>
+                <% @rt.separar.each do |word| %>
                   <%if word.start_with?('#')%>
                     <%= link_to "#{word}", "/?utf8=✓&search=#{word.gsub('#','')}" %>
                   <%else%>
@@ -31,7 +31,7 @@
                 <%end%>
               </h5>
               <%else%>
-                <h5 class="card-title"><%= @tweet.content %></h5>
+                <h5 class="card-title"><%= @rt.content %></h5>
               <%end%>
               <p><%= link_to (@rt.is_liked?(current_user) ?  raw('&#10084') : raw('&#9825')), likes_path(@rt.id), method: :post %>
               <span><%= @rt.likes.count %></p></span> 
