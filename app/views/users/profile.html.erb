@@ -21,7 +21,7 @@
       <h5 class="card-header"><%= @user.name %></h5>
       <% unless t.user_id == current_user.id %>
         <%if current_user.is_following?(t.user)%>
-          <h5 class="text-right"><%= link_to "des-seguir", follow_path(t.user), method: :post %></h5>
+          <h5 class="text-right"><%= link_to "des-seguir", unfollow_path(t.user), method: :post %></h5>
         <%else%>
           <h5 class="text-right"><%= link_to "agregar", follow_path(t.user), method: :post %></h5>
         <%end%>
