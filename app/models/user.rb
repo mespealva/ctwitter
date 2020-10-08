@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+  #after_destroy :revisar
+
+  #def revisar
+  #  Friend.delete_all(friend_id: params[:id])
+  #end
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -14,6 +19,7 @@ class User < ApplicationRecord
 
   def users_followed
     arr_ids = self.friends.pluck(:friend_id)
+    arr_ids = arr_ids.reject {|f| !User.all.ids.include?(f)}
     User.find(arr_ids)
   end
 
@@ -22,7 +28,9 @@ class User < ApplicationRecord
   end
 
   def friends_count
-    self.friends.count
+    friend = self.friends
+    friends = friend.reject {|f| !User.all.ids.include?(f.friend_id)}
+    friends.count
   end 
     
   def tweets_count
